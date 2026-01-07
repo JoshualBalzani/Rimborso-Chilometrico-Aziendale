@@ -5,203 +5,146 @@
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
 
-**Rimborso KM** è una web application production-ready per la gestione di trasferte chilometriche, reimborsi e flotta veicoli. Perfetta per professionisti, agenti commerciali e aziende.
+**Rimborso KM** è una web application production-ready per la gestione di trasferte chilometriche, reimborsi e flotta veicoli. Ideale per professionisti, agenti commerciali e piccole aziende.
 
-### ✨ Caratteristiche
+## ✨ Caratteristiche
 
-- 🎨 **Design Apple-style** - Minimalista, elegante, responsive
-- 📍 **Google Maps Integration** - Calcolo km automatico
-- 🚙 **Gestione Flotta** - Tariffe configurabili per veicolo
-- 📊 **Statistiche Avanzate** - Report per veicolo, motivo, periodo
-- 💾 **Export Multipli** - Excel, CSV, PDF
-- 📱 **100% Responsive** - Mobile, tablet, desktop
-- ⚡ **Zero Setup** - SQLite built-in, nessuna configurazione
-- 🔒 **Production-Ready** - Validazioni, error handling, logging
-
----
-
-## 🎯 Demo Rapida
-
-1. **Installa dipendenze:**
-   ```bash
-   python -m venv venv
-   venv\Scripts\activate          # Windows
-   source venv/bin/activate       # Mac/Linux
-   pip install -r requirements.txt
-   ```
-
-2. **Avvia il server:**
-   ```bash
-   python run.py
-   ```
-
-3. **Accedi:**
-   ```
-   http://127.0.0.1:5000
-   ```
-
-4. ✅ Fatto! Database SQLite si crea automaticamente
+- 🎨 **Design Apple-style** - Minimalista, elegante, 100% responsive
+- 🗺️ **OpenStreetMap Integration** - Autocomplete indirizzi e calcolo km (gratuito, no API key)
+- 🚙 **Gestione Flotta** - Aggiungi veicoli con tariffe personalizzate
+- 👥 **Gestione Clienti & Indirizzi** - CRUD completo + importazione CSV bulk
+- 📋 **Trasferte CRUD** - Inserisci, modifica, elimina trasferte con calcolo rimborso automatico
+- 📊 **Archivio & Ricerca** - Filtra trasferte per data, veicolo, motivo
+- 💾 **Export** - Scarica dati in Excel, CSV, PDF
+- 📥 **Importazione CSV** - Importa clienti e indirizzi in bulk
+- ⚡ **Zero Setup** - SQLite built-in, nessuna configurazione esterna
+- 🔒 **Production-Ready** - Validazioni completo, error handling, logging
 
 ---
 
-# 📘 Documentazione Completa
+## 🚀 Quick Start
 
-## 🎯 Panoramica
-- Crea API Key (tipo Restricted Key)
-- Incolla in `.env`
+### 1. Requisiti
+- Python 3.8+
+- Windows/Mac/Linux
+- Browser moderno (Chrome, Safari, Firefox, Edge)
 
-### 5. Inizializza Database
+### 2. Setup (5 minuti)
 
 ```bash
+# Vai nella directory del progetto
+cd "percorso/RIMBORSO KM"
+
+# Crea ambiente virtuale
+python -m venv venv
+venv\Scripts\activate          # Windows
+source venv/bin/activate       # Mac/Linux
+
+# Installa dipendenze
+pip install -r requirements.txt
+
+# Avvia il server
 python run.py
 ```
 
-La prima volta crea automaticamente il database SQLite in `data/app.db`
+### 3. Accedi
+Apri il browser: **http://127.0.0.1:5000**
 
-### 6. Accedi all'App
-
-Apri browser e vai a:
-
-```
-http://127.0.0.1:5000
-```
+✅ Database SQLite si crea automaticamente!
 
 ---
 
-## 📁 Struttura Progetto
+## 📖 Utilizzo
+
+### Dashboard
+- Riepilogo km totali e rimborsi
+- Accesso rapido a tutte le funzioni
+
+### Trasferte
+1. **Aggiungi trasferta** - Data, veicolo, partenza, arrivo, motivo
+2. **Calcolo km** - Automatico con OpenStreetMap (o inserimento manuale)
+3. **Rimborso automatico** - Calcolato in base alla tariffa del veicolo
+4. **Modifica/Elimina** - Accedi dal riassunto trasferte
+5. **Esporta** - Scarica in Excel o CSV
+
+### Veicoli
+1. **Crea veicolo** - Marca, modello, alimentazione, tariffa €/km
+2. **Modifica** - Aggiorna tariffe secondo le tue esigenze
+3. **Gestisci flotta** - Visualizza tutti i veicoli attivi
+
+### Clienti
+1. **Aggiungi cliente** - Nome, indirizzo, CAP
+2. **Importa CSV** - Scarica template e importa dati in bulk
+3. **Modifica/Elimina** - Gestione completa
+
+### Indirizzi Aziendali
+1. **Aggiungi sede** - Nome, via, città, CAP
+2. **Importa CSV** - Scarica template e importa sedi in bulk
+3. **Modifica/Elimina** - Gestione completa
+
+### Archivio
+- Ricerca avanzata per data, veicolo, motivo
+- Filtri multipli
+- Esporta risultati
+
+---
+
+## ⚙️ Configurazione
+
+### OpenStreetMap (Default - Gratuito)
+L'app usa OpenStreetMap di default:
+- ✅ Autocomplete indirizzi in tempo reale
+- ✅ Calcolo km automatico
+- ✅ Zero API key richiesto
+- ✅ Completamente gratuito
+
+### Google Maps (Opzionale - Fallback)
+Per usare Google Maps come fallback (opzionale):
+1. Copia `.env.example` → `.env`
+2. Aggiungi `GOOGLE_MAPS_API_KEY=your_key_here`
+3. Ottenere la key da: https://console.cloud.google.com
+
+Se non configurato, l'app usa OpenStreetMap automaticamente.
+
+---
+
+## 🗂️ Struttura Progetto
 
 ```
 RIMBORSO KM/
 ├── app/
-│   ├── __init__.py                 # Flask app principale e routes
-│   ├── models.py                   # SQLAlchemy models (Veicolo, Trasferta)
-│   ├── config.py                   # Configurazione e variabili
-│   ├── services.py                 # Google Maps Service
-│   ├── export.py                   # Esportazione Excel/CSV
-│   ├── templates/
-│   │   ├── index.html              # Dashboard homepage
-│   │   ├── trasferte.html          # Pagina trasferte
-│   │   ├── veicoli.html            # Pagina veicoli
-│   │   └── statistiche.html        # Pagina statistiche
+│   ├── __init__.py              # Flask app + routes API
+│   ├── models.py                # Database models (SQLAlchemy)
+│   ├── config.py                # Configurazione
+│   ├── services.py              # OpenStreetMap integration
+│   ├── export.py                # Export Excel/CSV/PDF
+│   ├── backup.py                # Auto-backup
+│   ├── templates/               # HTML pages
+│   │   ├── index.html           # Dashboard
+│   │   ├── trasferte.html       # Trasferte CRUD
+│   │   ├── veicoli.html         # Veicoli CRUD
+│   │   ├── clienti.html         # Clienti CRUD + import
+│   │   ├── indirizzi_aziendali.html  # Indirizzi CRUD + import
+│   │   ├── archivio.html        # Ricerca e filtri
+│   │   └── impostazioni.html    # Impostazioni
 │   └── static/
-│       ├── css/
-│       │   └── style.css           # Design system Apple-like
-│       └── js/
-│           ├── app.js              # JS principale (navigazione, utilità)
-│           ├── trasferte.js        # Logica trasferte (CRUD)
-│           ├── veicoli.js          # Logica veicoli (CRUD)
-│           └── statistiche.js      # Logica report
-├── run.py                          # Entry point (python run.py)
-├── schema.sql                      # Schema database (documentazione)
-├── requirements.txt                # Dipendenze Python
-├── .env.example                    # Configurazione di esempio
-├── .gitignore
-└── README.md                       # Questo file
-
-data/
-└── app.db                          # SQLite database (creato al primo avvio)
-```
-
----
-
-## 🔧 Configurazione
-
-### Google Maps API (Opzionale)
-
-L'app funziona ANCHE SENZA Google Maps. Modalità fallback disponibile sempre.
-
-**Con Google Maps** (automatico):
-1. Configura `GOOGLE_MAPS_API_KEY` in `.env`
-2. Clicca "Calcola Distanza" nella forma trasferta
-3. I km si riempiono automaticamente
-
-**Senza Google Maps** (manuale):
-1. Inserisci i km manualmente
-2. Rimborso si calcola lo stesso
-3. Nessuna limitazione funzionale
-
-### Tariffe Veicoli
-
-Crea veicoli con tariffe personalizzate:
-- Benzina: €0.42/km (standard ACI 2024)
-- Diesel: €0.38/km
-- Elettrico: €0.35/km
-- Personalizzate per azienda
-
----
-
-## 💻 Utilizzo dell'App
-
-### Dashboard
-- **Riepilogo mensile** - km, rimborsi, numero trasferte
-- **Trasferte recenti** - ultimi 5 viaggi
-- **Azioni rapide** - link veloci a funzioni principali
-
-### Trasferte
-1. **Inserisci trasferta**
-   - Seleziona data, veicolo, partenza, arrivo
-   - (Opzionale) Clicca "Calcola Distanza" per Google Maps
-   - Seleziona motivo trasferta
-   - Salva
-
-2. **Modifica trasferta**
-   - Clicca ✏️ nella tabella
-   - Modifica campi
-   - Salva o Elimina
-
-3. **Filtri avanzati**
-   - Per data (da/a)
-   - Per veicolo
-   - Per motivo
-   - Combina filtri
-
-4. **Esporta**
-   - Excel (.xlsx) - formattazione professionale
-   - CSV - compatibile Excel
-
-### Veicoli
-1. **Aggiungi veicolo**
-   - Marca, modello, alimentazione, €/km
-   - Salva
-
-2. **Modifica**
-   - Clicca card
-   - Modifica tariffa, alimentazione
-   - Salva
-
-3. **Elimina**
-   - Solo se nessuna trasferta associata
-   - Altrimenti veicolo rimane ma inattivo
-
-### Statistiche
-- **Per veicolo** - km totali, numero trasferte, rimborso
-- **Per motivo** - analisi per tipo trasferta
-- **Per mese** - trend mensile
-- **Per anno** - report annuale
-
-Filtra per periodo personalizzato.
-
----
-
-## 🎨 Design & UX
-
-### Filosofia Design
-
-- **Minimalismo Apple** - Zero clutter, essenziale
-- **Colori neutri** - Bianco, grigio, nero, blu primary
-- **Tipografia pulita** - San-serif web-safe (-apple-system)
-- **Spacing generoso** - Respira, non affollato
-- **Animazioni leggere** - Micro-interazioni smooth
-- **Responsive first** - Mobile → Tablet → Desktop
-
-### Palette Colori
-
-```css
-Primary:     #0071e3 (Blu Apple)
-Success:     #34c759 (Verde)
-Warning:     #ff9500 (Arancio)
-Danger:      #ff3b30 (Rosso)
-Gray 50-900: Scala neutrale
+│       ├── css/style.css        # Apple-style design
+│       └── js/                  # JavaScript per ogni pagina
+├── data/
+│   └── app.db                   # SQLite database (auto-creato)
+├── backups/                     # Auto-backup folder
+├── run.py                       # Entry point
+├── requirements.txt             # Python dependencies
+├── schema.sql                   # Database schema documentation
+├── .env.example                 # Configuration template
+├── LICENSE.md                   # MIT License
+├── CHANGELOG.md                 # Version history
+├── QUICKSTART.md                # 5-min setup guide
+├── WELCOME.md                   # Project overview
+├── START.txt                    # Info file
+├── CHECK_SETUP.bat              # Pre-flight checks (Windows)
+├── START_SERVER.bat             # Launch server with checks (Windows)
+└── START_SERVER_QUICK.bat       # Quick launch (Windows)
 ```
 
 ---
@@ -219,150 +162,124 @@ DELETE /api/veicoli/<id>         # Elimina veicolo
 
 ### Trasferte
 ```
-GET    /api/trasferte                    # Lista (con filtri)
-GET    /api/trasferte/<id>               # Singolo
-POST   /api/trasferte                    # Crea
-PUT    /api/trasferte/<id>               # Modifica
-DELETE /api/trasferte/<id>               # Elimina
+GET    /api/trasferte            # Lista trasferte (con filtri)
+GET    /api/trasferte/<id>       # Singola trasferta
+POST   /api/trasferte            # Crea trasferta
+PUT    /api/trasferte/<id>       # Modifica trasferta
+DELETE /api/trasferte/<id>       # Elimina trasferta
+```
+
+### Clienti
+```
+GET    /api/clienti              # Lista clienti
+POST   /api/clienti              # Crea cliente
+PUT    /api/clienti/<id>         # Modifica cliente
+DELETE /api/clienti/<id>         # Elimina cliente
+GET    /api/clienti/template     # Download CSV template
+POST   /api/clienti/import       # Import CSV bulk
+```
+
+### Indirizzi Aziendali
+```
+GET    /api/indirizzi-aziendali              # Lista indirizzi
+POST   /api/indirizzi-aziendali              # Crea indirizzo
+PUT    /api/indirizzi-aziendali/<id>        # Modifica indirizzo
+DELETE /api/indirizzi-aziendali/<id>        # Elimina indirizzo
+GET    /api/indirizzi-aziendali/template    # Download CSV template
+POST   /api/indirizzi-aziendali/import      # Import CSV bulk
 ```
 
 ### Utilità
 ```
-POST   /api/calcola-distanza             # Google Maps
-GET    /api/statistiche                  # Report aggregati
-GET    /api/esporta-excel                # Download .xlsx
-GET    /api/esporta-csv                  # Download .csv
-GET    /api/config                       # Configurazione frontend
+POST   /api/calcola-distanza     # Calcola km (OpenStreetMap)
+GET    /api/esporta-excel        # Scarica Excel
+GET    /api/esporta-csv          # Scarica CSV
 ```
 
 ---
 
-## 🔒 Sicurezza & Best Practices
+## 🎨 Design System
 
-✅ **Validazioni server-side** - Tutti i dati validati
-✅ **SQL Injection protection** - SQLAlchemy ORM
-✅ **CORS & CSRF ready** - Struttura per middleware
-✅ **No sensitive data in frontend** - API Key non esposta
-✅ **HTTPS ready** - Flask production-ready
-✅ **Error handling robusto** - 400, 404, 500 handled
+- **Colori:** Blu Apple (#0071e3), Verde (#34c759), Rosso (#ff3b30)
+- **Tipografia:** San-serif system fonts
+- **Layout:** CSS Grid responsive
+- **Animazioni:** Smooth micro-interactions
+- **Mobile-first:** Ottimizzato per mobile/tablet/desktop
 
 ---
 
-## 📊 Database
+## 💾 Database
 
-### Schema SQLite
+SQLite con 4 tabelle:
+- **veicoli** - Flotta veicoli con tariffe
+- **trasferte** - Trasferte con km e rimborso calcolato
+- **clienti** - Clienti per trasferte
+- **indirizzi_aziendali** - Sedi aziendali
 
-**Tabella: veicoli**
-```sql
-id (PK)
-marca (TEXT, NOT NULL)
-modello (TEXT, NOT NULL)
-alimentazione (ENUM)
-tariffa_km (DECIMAL, NOT NULL)
-data_creazione (TIMESTAMP)
-attivo (BOOLEAN)
-```
+Auto-backup ogni volta che avvii l'app.
 
-**Tabella: trasferte**
-```sql
-id (PK)
-data (DATE, NOT NULL)
-luogo_partenza (TEXT, NOT NULL)
-luogo_arrivo (TEXT, NOT NULL)
-chilometri (DECIMAL, NOT NULL)
-calcolo_km (manuale|automatico)
-motivo (TEXT, NOT NULL)
-veicolo_id (FK)
-rimborso (GENERATED: km × tariffa)
-note (TEXT)
-data_creazione (TIMESTAMP)
-data_modifica (TIMESTAMP)
-```
+---
 
-**Tabella: luoghi_frequenti**
-```sql
-id (PK)
-nome (TEXT, UNIQUE)
-latitudine (FLOAT)
-longitudine (FLOAT)
-```
+## 🔒 Sicurezza
+
+✅ Validazioni server-side su tutti gli endpoint
+✅ SQLAlchemy ORM (protezione SQL injection)
+✅ Nessun dato sensibile nel frontend
+✅ Error handling robusto
 
 ---
 
 ## 🐛 Troubleshooting
 
-### Porta 5000 occupata
+**Porta 5000 occupata**
 ```bash
-# Cambia porta in run.py oppure:
-python run.py --port=5001
+python run.py  # Usa porta 5001 automaticamente
 ```
 
-### Database corrotto
+**Database corrotto**
 ```bash
 # Elimina e ricrea
 rm data/app.db
 python run.py
 ```
 
-### Errore Google Maps
-- Controlla API Key in `.env`
-- Verifica Distance Matrix API abilitato
-- Usa fallback manuale
+**Errore CSS/JS**
+- Hard refresh browser: `Ctrl+Shift+R`
+- Cancella cache
 
-### Stile CSS non carica
-- Hard refresh browser (Ctrl+Shift+R)
-- Cancella cache browser
-
----
-
-## 📈 Roadmap Futuri
-
-- [ ] Autenticazione multi-user
-- [ ] Cloud sync (Google Drive, OneDrive)
-- [ ] Mobile app nativa (React Native)
-- [ ] Integrazione bancaria automatica
-- [ ] Reportistica PDF avanzata
-- [ ] Importazione bulk CSV
-
----
-
-## 🤝 Supporto & Contributi
-
-Per problemi:
-1. Controlla la sezione Troubleshooting
-2. Verifica console browser (F12)
-3. Controlla logs terminale Python
+**OpenStreetMap non funziona**
+- Controlla connessione internet
+- Se l'API è lenta, usa Google Maps (vedi configurazione)
 
 ---
 
 ## 📝 Licenza
 
-Uso personale e commerciale libero.
+MIT License - Uso libero personale e commerciale
 
 ---
 
-## 👨‍💻 Crediti
+## 📊 Tecnico
 
-**Sviluppato come:**
-- Web app production-ready
-- Design Apple-style
-- Stack Python/Flask/SQLite
-- Zero dipendenze opzionali
-
----
-
-## 📞 Info Tecniche
-
-- **Framework:** Flask 3.0
-- **ORM:** SQLAlchemy 2.0
+- **Backend:** Flask 3.0.3 + SQLAlchemy ORM
+- **Frontend:** HTML5 + CSS3 + Vanilla JavaScript
 - **Database:** SQLite 3
-- **Frontend:** HTML5, CSS3, Vanilla JS
-- **API:** RESTful JSON
-- **Export:** openpyxl (Excel)
+- **Export:** openpyxl (Excel), csv (CSV)
+- **API:** REST JSON
+- **Server:** Development/Production ready
 
 ---
 
-**Ultimo aggiornamento:** Dicembre 2024
+## 📞 Supporto
+
+Per problemi:
+1. Controlla console browser (F12)
+2. Verifica log terminale Python
+3. Esegui `CHECK_SETUP.bat` per verificare prerequisites
+
+---
+
 **Versione:** 1.0.0
 **Status:** Production Ready ✅
+**Ultimo aggiornamento:** Gennaio 2026
 
